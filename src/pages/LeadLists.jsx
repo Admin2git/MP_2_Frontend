@@ -55,22 +55,22 @@ export const LeadLists = () => {
     error: agentErro,
   } = useFetch(`${import.meta.env.VITE_BASE_API_URL}/agents`);
 
-  if (loading || agentLoad) {
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "50vh" }}
-      >
-        Loading...
-      </div>
-    );
-  }
+  // if (loading || agentLoad) {
+  //   return (
+  //     <div
+  //       className="d-flex justify-content-center align-items-center"
+  //       style={{ height: "50vh" }}
+  //     >
+  //       Loading...
+  //     </div>
+  //   );
+  // }
 
   if (error || agentErro) {
     return <div className="container pt-4 pb-5 ">Error loading data</div>;
   }
 
-  return data && agents ? (
+  return (
     <>
       <div className="container-fluid">
         <div className="row ">
@@ -82,150 +82,158 @@ export const LeadLists = () => {
           >
             <h3 className=" pt-4 fw-normal text-center">Lead List Overview</h3>
 
-            <div className=" py-4">
-              <h6 className="status-select fw-normal">Filters by:</h6>
-              <select
-                className="form-select status-select"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="" disabled>
-                  All Status
-                </option>
-                <option value="">All</option>
-                <option value="New">New</option>
-                <option value="Contacted">Contacted</option>
-                <option value="Qualified">Qualified</option>
-                <option value="Proposal Sent">Proposal Sent</option>
-                <option value="Closed">Closed</option>
-              </select>
+            {data && agents && !loading && !agentLoad ? (
+              <>
+                <div className=" py-4">
+                  <h6 className="status-select fw-normal">Filters by:</h6>
+                  <select
+                    className="form-select status-select"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      All Status
+                    </option>
+                    <option value="">All</option>
+                    <option value="New">New</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Qualified">Qualified</option>
+                    <option value="Proposal Sent">Proposal Sent</option>
+                    <option value="Closed">Closed</option>
+                  </select>
 
-              <select
-                className="form-select "
-                value={salesAgent}
-                onChange={(e) => setSalesAgent(e.target.value)}
-              >
-                <option value="" disabled>
-                  All SalesAgent
-                </option>
-                <option value="">All</option>
-                {agents?.map((agent) => (
-                  <option key={agent._id} value={agent.name}>
-                    {agent.name}
-                  </option>
-                ))}
-              </select>
+                  <select
+                    className="form-select "
+                    value={salesAgent}
+                    onChange={(e) => setSalesAgent(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      All SalesAgent
+                    </option>
+                    <option value="">All</option>
+                    {agents?.map((agent) => (
+                      <option key={agent._id} value={agent.name}>
+                        {agent.name}
+                      </option>
+                    ))}
+                  </select>
 
-              <select
-                className="form-select ms-3"
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-              >
-                <option value="" disabled>
-                  All Priority
-                </option>
+                  <select
+                    className="form-select ms-3"
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      All Priority
+                    </option>
 
-                <option value="">All</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
+                    <option value="">All</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
 
-            <div className="mb-4 d-flex justify-content-between">
-              <div>
-                <h6 className="status-select fw-normal">Sort by:</h6>
+                <div className="mb-4 d-flex justify-content-between">
+                  <div>
+                    <h6 className="status-select fw-normal">Sort by:</h6>
 
-                <select
-                  className="form-select "
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                >
-                  <option value="Priority">Priority</option>
-                  <option value="Time to Close">Time to Close</option>
-                </select>
+                    <select
+                      className="form-select "
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                    >
+                      <option value="Priority">Priority</option>
+                      <option value="Time to Close">Time to Close</option>
+                    </select>
 
-                <select
-                  className="form-select ms-3"
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value)}
-                >
-                  <option value="Ascending">Ascending</option>
-                  <option value="Descending">Descending</option>
-                </select>
-              </div>
-
-              <div className="">
-                <Button variant="primary" href="/leadForm">
-                  Add New Lead
-                </Button>
-              </div>
-            </div>
-
-            <div class="card col-12 mb-5">
-              <div class="card-body px-4">
-                <ul class="list-group list-group-flush">
-                  <div className="row py-2">
-                    <div className="col-12 col-sm-4 col-md-3">
-                      <strong>Name:</strong>
-                    </div>
-                    <div className="col-12 col-sm-4 col-md-2">
-                      <strong>Status: </strong>
-                    </div>
-                    <div className="col-12 col-sm-4 col-md-3">
-                      <strong>Sales Agent: </strong>
-                    </div>
-                    <div className="col-12 col-sm-4 col-md-2">
-                      <strong>priority: </strong>
-                    </div>
-                    <div className="col-12 col-sm-4 col-md-2">
-                      <strong>timeToClose: </strong>
-                    </div>
+                    <select
+                      className="form-select ms-3"
+                      value={sortOrder}
+                      onChange={(e) => setSortOrder(e.target.value)}
+                    >
+                      <option value="Ascending">Ascending</option>
+                      <option value="Descending">Descending</option>
+                    </select>
                   </div>
-                  {data1 && data1.length > 0 ? (
-                    data1.map((lead) => (
-                      <>
-                        <div key={lead._id} className="row py-2">
-                          <div className="col-12 col-sm-4 col-md-3">
-                            <div className="list-group-item">{lead.name}</div>
-                          </div>
-                          <div className="col-12 col-sm-4 col-md-2">
-                            <div className="list-group-item">{lead.status}</div>
-                          </div>
-                          <div className="col-12 col-sm-4 col-md-3">
-                            <div className="list-group-item">
-                              {lead.salesAgent.name}
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-4 col-md-2">
-                            <div className="list-group-item">
-                              {lead.priority}
-                            </div>
-                          </div>
-                          <div className="col-12 col-sm-4 col-md-2">
-                            <div className="list-group-item">
-                              {lead.timeToClose} days
-                            </div>
-                          </div>
+
+                  <div className="">
+                    <Button variant="primary" href="/leadForm">
+                      Add New Lead
+                    </Button>
+                  </div>
+                </div>
+
+                <div class="card col-12 mb-5">
+                  <div class="card-body px-4">
+                    <ul class="list-group list-group-flush">
+                      <div className="row py-2">
+                        <div className="col-12 col-sm-4 col-md-3">
+                          <strong>Name:</strong>
                         </div>
-                      </>
-                    ))
-                  ) : (
-                    <p>No leads found</p>
-                  )}
-                </ul>
-              </div>
-            </div>
+                        <div className="col-12 col-sm-4 col-md-2">
+                          <strong>Status: </strong>
+                        </div>
+                        <div className="col-12 col-sm-4 col-md-3">
+                          <strong>Sales Agent: </strong>
+                        </div>
+                        <div className="col-12 col-sm-4 col-md-2">
+                          <strong>priority: </strong>
+                        </div>
+                        <div className="col-12 col-sm-4 col-md-2">
+                          <strong>timeToClose: </strong>
+                        </div>
+                      </div>
+                      {data1 && data1.length > 0 ? (
+                        data1.map((lead) => (
+                          <>
+                            <div key={lead._id} className="row py-2">
+                              <div className="col-12 col-sm-4 col-md-3">
+                                <div className="list-group-item">
+                                  {lead.name}
+                                </div>
+                              </div>
+                              <div className="col-12 col-sm-4 col-md-2">
+                                <div className="list-group-item">
+                                  {lead.status}
+                                </div>
+                              </div>
+                              <div className="col-12 col-sm-4 col-md-3">
+                                <div className="list-group-item">
+                                  {lead.salesAgent.name}
+                                </div>
+                              </div>
+                              <div className="col-12 col-sm-4 col-md-2">
+                                <div className="list-group-item">
+                                  {lead.priority}
+                                </div>
+                              </div>
+                              <div className="col-12 col-sm-4 col-md-2">
+                                <div className="list-group-item">
+                                  {lead.timeToClose} days
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        ))
+                      ) : (
+                        <p>No leads found</p>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+              >
+                Loading...
+              </p>
+            )}
           </div>
         </div>
       </div>
     </>
-  ) : (
-    <p
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "50vh" }}
-    >
-      Loading...
-    </p>
   );
 };

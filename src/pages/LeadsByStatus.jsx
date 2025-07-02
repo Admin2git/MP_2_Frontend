@@ -92,17 +92,6 @@ export const LeadsByStatus = () => {
 
   const sortedLeads = sortData(leads);
 
-  if (loading || agentLoad) {
-    return (
-      <p
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "50vh" }}
-      >
-        Loading...
-      </p>
-    );
-  }
-
   if (agentErro) {
     return <div className="container pt-4 pb-5 ">Error loading data</div>;
   }
@@ -119,114 +108,126 @@ export const LeadsByStatus = () => {
           >
             <h3 className="pb-5 text-center pt-4 fw-normal">Leads by Status</h3>
 
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <label className="mb-1">
-                  Status:
-                  <select
-                    className="form-select status-select ms-2"
-                    name="status"
-                    value={filters.status}
-                    onChange={handleChange}
-                  >
-                    <option value="">All Status</option>
-                    <option value="New">New</option>
-                    <option value="Contacted">Contacted</option>
-                    <option value="Qualified">Qualified</option>
-                    <option value="Proposal Sent">Proposal Sent</option>
-                    <option value="Closed">Closed</option>
-                  </select>
-                </label>
-              </div>
+            {!loading && !agentLoad ? (
+              <>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <label className="mb-1">
+                      Status:
+                      <select
+                        className="form-select status-select ms-2"
+                        name="status"
+                        value={filters.status}
+                        onChange={handleChange}
+                      >
+                        <option value="">All Status</option>
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Qualified">Qualified</option>
+                        <option value="Proposal Sent">Proposal Sent</option>
+                        <option value="Closed">Closed</option>
+                      </select>
+                    </label>
+                  </div>
 
-              <div className="d-flex align-items-center ">
-                <div className="d-flex flex-column">
-                  <label className="mb-1">
-                    Filters by :
-                    <select
-                      name="salesAgent"
-                      className="form-select ms-2"
-                      value={filters.salesAgent}
-                      onChange={handleChange}
-                    >
-                      <option value="">All SalesAgent</option>
+                  <div className="d-flex align-items-center ">
+                    <div className="d-flex flex-column">
+                      <label className="mb-1">
+                        Filters by :
+                        <select
+                          name="salesAgent"
+                          className="form-select ms-2"
+                          value={filters.salesAgent}
+                          onChange={handleChange}
+                        >
+                          <option value="">All SalesAgent</option>
 
-                      {agents?.map((agent) => (
-                        <option key={agent._id} value={agent._id}>
-                          {agent.name}
+                          {agents?.map((agent) => (
+                            <option key={agent._id} value={agent._id}>
+                              {agent.name}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          className="form-select status-select ms-2"
+                          name="priority"
+                          value={filters.priority}
+                          onChange={handleChange}
+                        >
+                          <option value="">All Priority</option>
+                          <option value="High">High</option>
+                          <option value="Medium">Medium</option>
+                          <option value="Low">Low</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <label className="mb-1 ms-2">
+                      Sort by :
+                      <select
+                        className="form-select status-select ms-2"
+                        name="priority"
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                      >
+                        <option value="" disabled>
+                          TimetoClose
                         </option>
-                      ))}
-                    </select>
-                    <select
-                      className="form-select status-select ms-2"
-                      name="priority"
-                      value={filters.priority}
-                      onChange={handleChange}
-                    >
-                      <option value="">All Priority</option>
-                      <option value="High">High</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Low">Low</option>
-                    </select>
-                  </label>
+                        <option value="Ascending">Ascending</option>
+                        <option value="Descending">Descending</option>
+                      </select>
+                    </label>
+                  </div>
                 </div>
 
-                <label className="mb-1 ms-2">
-                  Sort by :
-                  <select
-                    className="form-select status-select ms-2"
-                    name="priority"
-                    value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      TimetoClose
-                    </option>
-                    <option value="Ascending">Ascending</option>
-                    <option value="Descending">Descending</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-
-            <div className="row">
-              {leads.length === 0 ? (
-                <p>No leads found matching the selected filters.</p>
-              ) : (
-                sortedLeads?.map((lead) => (
-                  <div className="col-md-3 col-sm-6 my-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title mb-3">{lead.name}</h5>
-                        <p class="card-text">
-                          <strong> TimetoClose:</strong> {lead.timeToClose} days
-                        </p>
-                        <p class="card-text">
-                          <strong>SalesAgent: </strong>
-                          {lead.salesAgent.name}
-                        </p>
-                        <p class="card-text">
-                          <strong>Priority: </strong>
-                          {lead.priority}
-                        </p>
-                        <p class="card-text">
-                          <strong>Status: </strong>
-                          {lead.status}
-                        </p>
-                        <div className="d-flex  justify-content-end mt-2">
-                          <a
-                            href={`/leads/${lead._id}`}
-                            class="btn btn-sm btn-primary"
-                          >
-                            Details
-                          </a>
+                <div className="row">
+                  {leads.length === 0 ? (
+                    <p>No leads found matching the selected filters.</p>
+                  ) : (
+                    sortedLeads?.map((lead) => (
+                      <div className="col-md-3 col-sm-6 my-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title mb-3">{lead.name}</h5>
+                            <p class="card-text">
+                              <strong> TimetoClose:</strong> {lead.timeToClose}{" "}
+                              days
+                            </p>
+                            <p class="card-text">
+                              <strong>SalesAgent: </strong>
+                              {lead.salesAgent.name}
+                            </p>
+                            <p class="card-text">
+                              <strong>Priority: </strong>
+                              {lead.priority}
+                            </p>
+                            <p class="card-text">
+                              <strong>Status: </strong>
+                              {lead.status}
+                            </p>
+                            <div className="d-flex  justify-content-end mt-2">
+                              <a
+                                href={`/leads/${lead._id}`}
+                                class="btn btn-sm btn-primary"
+                              >
+                                Details
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+                    ))
+                  )}
+                </div>
+              </>
+            ) : (
+              <p
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+              >
+                Loading...
+              </p>
+            )}
           </div>
         </div>
       </div>

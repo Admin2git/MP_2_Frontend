@@ -25,7 +25,8 @@ export const SalesAgentsList = () => {
         toast.error("Delete failed ❌");
       });
   };
-  return agents ? (
+  
+  return (
     <>
       <div className="container">
         <div className="row ">
@@ -42,64 +43,68 @@ export const SalesAgentsList = () => {
             <div className="d-flex justify-content-between align-items-center py-3">
               <h4 className="fw-normal">All SalesAgents</h4>
 
-              
-                <Button variant="primary" href="/agentForm">
-                  Add New salesAgent
-                </Button>
-           
+              <Button variant="primary" href="/agentForm">
+                Add New salesAgent
+              </Button>
             </div>
 
-            <div class="card col-12 ">
-              <div class="card-body px-4">
-                <ul class="list-group list-group-flush">
-                  <div className="row py-2">
-                    <div className="col-12 col-sm-4 col-md-5">
-                      <strong>Agents Name:</strong>
+            {agents ? (
+              <div class="card col-12 ">
+                <div class="card-body px-4">
+                  <ul class="list-group list-group-flush">
+                    <div className="row py-2">
+                      <div className="col-12 col-sm-4 col-md-5">
+                        <strong>Agents Name:</strong>
+                      </div>
+                      <div className="col-12 col-sm-4 col-md-5">
+                        <strong>Email: </strong>
+                      </div>
                     </div>
-                    <div className="col-12 col-sm-4 col-md-5">
-                      <strong>Email: </strong>
-                    </div>
-                  </div>
-                  {agents && agents.length > 0 ? (
-                    agents.map((agent) => (
-                      <>
-                        <div key={agent._id} className="row py-2">
-                          <div className="col-12 col-sm-4 col-md-5">
-                            <div className="list-group-item">{agent.name}</div>
+                    {agents && agents.length > 0 ? (
+                      agents.map((agent) => (
+                        <>
+                          <div key={agent._id} className="row py-2">
+                            <div className="col-12 col-sm-4 col-md-5">
+                              <div className="list-group-item">
+                                {agent.name}
+                              </div>
+                            </div>
+                            <div className="col-12 col-sm-4 col-md-5">
+                              <div className="list-group-item">
+                                {agent.email}
+                              </div>
+                            </div>
+                            <div className="col-12 col-sm-4 col-md-2">
+                              <button
+                                className="btn btn-danger"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeletAgent(agent._id);
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                          <div className="col-12 col-sm-4 col-md-5">
-                            <div className="list-group-item">{agent.email}</div>
-                          </div>
-                          <div className="col-12 col-sm-4 col-md-2">
-                            <button
-                              className="btn btn-danger"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeletAgent(agent._id);
-                              }}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </>
-                    ))
-                  ) : (
-                    <p>No salesAgent found</p>
-                  )}
-                </ul>
+                        </>
+                      ))
+                    ) : (
+                      <p>No salesAgent found</p>
+                    )}
+                  </ul>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+              >
+                Loading...
+              </p>
+            )}
           </div>
         </div>
       </div>
     </>
-  ) : (
-    <p
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "50vh" }}
-    >
-      Loading...
-    </p>
   );
 };

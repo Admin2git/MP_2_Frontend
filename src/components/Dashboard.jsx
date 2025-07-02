@@ -72,7 +72,7 @@ export const Dashboard = () => {
                   <label className="mb-1">
                     Filters by status:
                     <select
-                      className="form-select status-select"
+                      className="form-select status-select ms-2"
                       onChange={(e) => setStatus(e.target.value)}
                     >
                       <option value="All">All</option>

@@ -60,6 +60,7 @@ export const AgentForm = () => {
                         type="text"
                         className="form-control"
                         value={agentformData.name}
+                        placeholder="Enter full name"
                         onChange={(e) =>
                           setAgentFormData({
                             ...agentformData,
@@ -77,6 +78,7 @@ export const AgentForm = () => {
                         type="email"
                         className="form-control"
                         value={agentformData.email}
+                        placeholder="Enter  email"
                         onChange={(e) =>
                           setAgentFormData({
                             ...agentformData,

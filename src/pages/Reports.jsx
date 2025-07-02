@@ -158,7 +158,7 @@ export const Reports = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  return data1 && !loading && agents ? (
+  return (
     <>
       <div className="container">
         <div className="row ">
@@ -172,75 +172,78 @@ export const Reports = () => {
             <h4 className=" pb-4 fw-normal text-center mt-4">
               Report Overview
             </h4>
-            <div className="d-flex flex-column  align-items-center  col-12 text-center ">
-              <h5 className=" pb-4 fw-normal  ">
-                Total Leads closed and in Pipeline:
-              </h5>
 
-              <div class=" col-5 pb-5 ">
-                <Pie
-                  data={closedAndPipline}
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      title: {
-                        display: true,
-                        text: "Total Leads Closed and in Pipeline",
-                      },
-                      tooltip: {
-                        enabled: true,
-                        callbacks: {
-                          label: (context) => {
-                            return `${context.label}: ${context.raw}`;
+            {data1 && !loading && agents ? (
+              <div className="d-flex flex-column  align-items-center  col-12 text-center ">
+                <h5 className=" pb-4 fw-normal  ">
+                  Total Leads closed and in Pipeline:
+                </h5>
+
+                <div class=" col-5 pb-5 ">
+                  <Pie
+                    data={closedAndPipline}
+                    options={{
+                      responsive: true,
+                      plugins: {
+                        title: {
+                          display: true,
+                          text: "Total Leads Closed and in Pipeline",
+                        },
+                        tooltip: {
+                          enabled: true,
+                          callbacks: {
+                            label: (context) => {
+                              return `${context.label}: ${context.raw}`;
+                            },
                           },
                         },
                       },
-                    },
-                  }}
-                />
-              </div>
+                    }}
+                  />
+                </div>
 
-              <h5 className=" pb-4 fw-normal  ">
-                Leads Closed by Sales Agent:
-              </h5>
-              <div class=" col-7  pb-5">
-                <Bar
-                  data={chartDataByAgent}
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      title: {
-                        display: true,
-                        text: "Leads Closed by Sales Agent",
-                      },
-                      tooltip: {
-                        enabled: true,
-                        callbacks: {
-                          label: (context) => {
-                            return `Leads Closed: ${context.raw}`;
+                <h5 className=" pb-4 fw-normal  ">
+                  Leads Closed by Sales Agent:
+                </h5>
+                <div class=" col-7  pb-5">
+                  <Bar
+                    data={chartDataByAgent}
+                    options={{
+                      responsive: true,
+                      plugins: {
+                        title: {
+                          display: true,
+                          text: "Leads Closed by Sales Agent",
+                        },
+                        tooltip: {
+                          enabled: true,
+                          callbacks: {
+                            label: (context) => {
+                              return `Leads Closed: ${context.raw}`;
+                            },
                           },
                         },
                       },
-                    },
-                  }}
-                />
-              </div>
+                    }}
+                  />
+                </div>
 
-              <h5 className=" pb-4 fw-normal  ">Lead Status Distribution:</h5>
-              <div class=" col-5 pb-5 ">
-                <Pie data={data1} />
+                <h5 className=" pb-4 fw-normal  ">Lead Status Distribution:</h5>
+                <div class=" col-5 pb-5 ">
+                  <Pie data={data1} />
+                </div>
               </div>
-            </div>
+            ) : (
+              <p
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+              >
+                Loading...
+              </p>
+            )}
           </div>
         </div>
       </div>
     </>
-  ) : (
-    <p
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "50vh" }}
-    >
-      Loading...
-    </p>
   );
 };
