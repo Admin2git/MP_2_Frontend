@@ -1,12 +1,56 @@
-# React + Vite
+# Anvaya CRM - Lead Management App 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Anvaya CRM Frontend is a React.js application that communicates with the backend API to manage sales leads and agents. It provides a user interface for creating, viewing, and updating leads, as well as managing sales agents and adding comments.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Lead Form**: Create new leads by providing details like name, source, assigned agent, status, priority, etc.
+- **Lead List**: View leads with filters (sales agent, status, tags, and source) and sorting options.
+- **Lead Details**: View detailed information about each lead, add comments, and update lead details.
+- **Sales Agent View**: View leads grouped by sales agents to monitor their workload and performance.
+- **Reports**: View visual reports such as leads closed last week, total leads in the pipeline, and leads by sales agent.
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/Admin2git/MP_2_Frontend.git
+    cd MP_2_Frontend
+    ```
+
+2. **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3. **Start the Frontend**:
+
+    ```bash
+    npm start
+    ```
+
+    The frontend will run at `http://localhost:3000`.
+
+
+## Technologies Used
+
+- **React.js**: JavaScript library for building user interfaces.
+- **Bootstrap**: For responsive and modern UI components.
+- **React Router**: For navigation and routing between pages.
+- **Axios**: For making HTTP requests to the backend.
+- **Node.js** (with backend integration): To handle server-side logic and data persistence.
+
+### Prerequisites
+Ensure you have **Node.js** and **npm** installed on your machine.
+
+
+## Preview Link
+
+[live app](https://mp-2-frontend-jet.vercel.app/)
+
+
+## Contact
+
+For bugs or any suggestion, reach out to ansariakabar78692@gmail.com
