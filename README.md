@@ -1,6 +1,6 @@
-# Anvaya CRM - Lead Management App 
+# CRM - Lead Management App 
 
-Anvaya CRM Frontend is a React.js application that communicates with the backend API to manage sales leads and agents. It provides a user interface for creating, viewing, and updating leads, as well as managing sales agents and adding comments.
+ CRM Frontend is a React.js application that communicates with the backend API to manage sales leads and agents. It provides a user interface for creating, viewing, and updating leads, as well as managing sales agents and adding comments.
 
 ## Features
 
